@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1068314366228",
+    "project_id": "link-zone-799c6",
+    "storage_bucket": "link-zone-799c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1068314366228:android:b9b10fcdc67e9282ebb201",
+        "android_client_info": {
+          "package_name": "com.example.link_zone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDODwKApradfWe9g5UkiTym_5x7azWIjrw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
