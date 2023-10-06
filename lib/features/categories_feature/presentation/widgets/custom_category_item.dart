@@ -8,8 +8,9 @@ import '../../../../app/widgets/text_widget.dart';
 import '../../data/models/categories_model.dart';
 
 class CustomCategoryItem extends StatelessWidget {
-  const CustomCategoryItem({super.key, required this.categoryModelData, this.color,});
+  const CustomCategoryItem({super.key, required this.categoryModelData, this.color, this.text,});
   final CategoryModelData categoryModelData;
+  final String? text;
   final Color? color;
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class CustomCategoryItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16)
               ),
               child: ImageWidget(
-                imageUrl:categoryModelData.image??"",
+                imageUrl:"assets/images/space.jpeg",
                 height: 90.h,
                 fit: BoxFit.fill,
               ),
@@ -39,7 +40,7 @@ class CustomCategoryItem extends StatelessWidget {
           ),
           12.verticalSpace,
           TextWidget(
-            title:"Flutter Track",
+            title: text??"",
             titleFontWeight: FontWeight.w700,
             titleSize: 14.sp,
             titleColor: AppColors.gery455,

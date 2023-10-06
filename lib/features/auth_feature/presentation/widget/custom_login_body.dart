@@ -9,8 +9,10 @@ import '../../../../app/utils/helper.dart';
 import '../../../../app/widgets/button_widget.dart';
 import '../../../../app/widgets/custom_form_field.dart';
 import '../../../../app/widgets/text_button_widget.dart';
+import '../../../../app/widgets/text_widget.dart';
 import '../presentation_logic_holder/auth_cubit.dart';
 import '../screens/forget_pass_screen.dart';
+import '../screens/register_screen.dart';
 
 
 class LoginCustomBody extends StatefulWidget {
@@ -77,12 +79,23 @@ class _LoginCustomBodyState extends State<LoginCustomBody> {
                 16.verticalSpace,
                 Align(
                   alignment: Alignment.center,
-                  child: CustomTextButton(
-                    titleSize: 22.sp,
-                    titleFontWeight: FontWeight.bold,
-                    onPressed: () {
-                     // navigateTo(const BNBScreen(),replace: true);
-                    },
+                  child: Row(
+                    children: [
+                      TextWidget(
+                        title:"Don't have an account ?",
+                        titleColor:AppColors.black,
+                        titleSize:  16.sp,
+                        titleFontWeight:FontWeight.w500,
+                      ),
+                      CustomTextButton(
+                        titleSize: 18.sp,
+                        title: "Sign Up",
+                        titleFontWeight: FontWeight.bold,
+                        onPressed: () {
+                          navigateTo(const RegisterScreen(),replace: true);
+                        },
+                      ),
+                    ],
                   ),
                 ),
                 100.verticalSpace

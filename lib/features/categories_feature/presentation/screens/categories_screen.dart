@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:link_zone/features/categories_feature/data/models/categories_model.dart';
 
 import '../../../../app/utils/helper.dart';
 import '../../../../app/widgets/default_app_bar_widget.dart';
@@ -21,6 +22,14 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     super.initState();
     CategoriesCubit.get().getAllCategories();
   }
+  List<String> tracks = [
+    "Data Science",
+    "Mobile App",
+    "Web App",
+    "Earth",
+    "Space",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return  BlocBuilder<CategoriesCubit, CategoriesState>(
@@ -45,16 +54,19 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             crossAxisSpacing: 16.w,
             childAspectRatio: 1.3
         ),
-        itemCount: cubit.categoriesModel?.categories.length??0,
+        itemCount: tracks.length,
         itemBuilder: (context, index) {
           return InkWell(
               onTap: () {
                 navigateTo(CategoryProductsScreen(
                     catId:cubit.categoriesModel?.categories[index].id!.toInt()??0,
-                  catName: cubit.categoriesModel?.categories[index].name??"",
+                  catName: tracks[index],
                 ));
               },
-              child: CustomCategoryItem(categoryModelData:cubit.categoriesModel!.categories[index]));
+              child: CustomCategoryItem(
+                text: tracks[index],
+                  categoryModelData:cubit.categoriesModel?.categories[index]??CategoryModelData()),
+          );
         },
       ),
     );

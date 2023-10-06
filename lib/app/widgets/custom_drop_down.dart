@@ -211,9 +211,9 @@ class _CustomDropDownState extends State<CustomDropDown> {
                         child: Text(
                           widget.dropDownHint,
                           style: widget.dropDownHintTextStyle??TextStyle(
-                            fontSize:19.sp,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.field,
+                            fontSize:16.sp,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.black,
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -245,7 +245,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
                   },
                   icon: const Icon(
                     Icons.keyboard_arrow_down_rounded,
-                    color: AppColors.black,
+                    color: AppColors.mainColor,
                   ),
                   iconSize: 24,
                   alignment: Alignment.centerRight,
@@ -256,7 +256,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
                   buttonDecoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: AppColors.gery4,
+                      color: AppColors.mainColor,
                     ),
                     // color: AppColors.Theme.of(context),
                   ),

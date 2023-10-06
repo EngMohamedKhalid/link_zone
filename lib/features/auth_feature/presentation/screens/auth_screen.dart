@@ -69,42 +69,7 @@ class _AuthScreenState extends State<AuthScreen> with SingleTickerProviderStateM
               titleFontWeight: FontWeight.w500,
             ),
             32.verticalSpace,
-            TabBar(
-              controller: tabController,
-              indicatorColor: AppColors.mainColor,
-              unselectedLabelColor: AppColors.field,
-              labelColor: AppColors.mainColor,
-              indicatorWeight: 2,
-              indicatorSize: TabBarIndicatorSize.tab,
-              labelPadding: EdgeInsets.only(bottom: 12.h),
-              tabs: [
-                Text(
-                  "SignIn".tr(),
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24.sp
-                  ),
-                ),
-                Text(
-                  "SignUp".tr(),
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24.sp
-                  ),
-                ),
-              ],
-            ),
-            20.verticalSpace,
-            Expanded(
-              child: TabBarView(
-                physics:const BouncingScrollPhysics(),
-                controller: tabController,
-                children:  [
-                  LoginCustomBody(fromCheckOut: widget.fromCheckout,),
-                  RegisterCustomBody(fromCheckOut: widget.fromCheckout,)
-                ],
-              ),
-            )
+            Expanded(child: LoginCustomBody(fromCheckOut: widget.fromCheckout,)),
           ],
         ),
       ),

@@ -6,6 +6,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:link_zone/features/categories_feature/presentation/presentation_logic_holder/categories_cubit.dart';
 import 'package:link_zone/features/home_feature/presentation/presentation_logic_holder/home_cubit.dart';
+import 'package:link_zone/features/notifications_feature/presentation/presentation_logic_holder/cubit/notification_cubit.dart';
 import 'package:link_zone/features/profile_feature/presentation/presentation_logic_holder/cubit/profile_cubit.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'app/services/cache_service.dart';
@@ -43,6 +44,9 @@ void main() async{
       ),
       BlocProvider<ProfileCubit>(
         create: (BuildContext context) => ProfileCubit(),
+      ),
+      BlocProvider<NotificationCubit>(
+        create: (BuildContext context) => NotificationCubit(),
       ),
     ],
     child:  MyApp(),

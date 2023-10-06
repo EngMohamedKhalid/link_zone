@@ -43,10 +43,13 @@ class AuthCubit extends Cubit<AuthStates> {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   String ? jobType;
   String ? accountType;
+  String ? Interests;
+  String ? workExperience;
   String ? name;
   //sign up
   final signUpFullNameController = TextEditingController();
   final signUpPhoneController = TextEditingController();
+  final professionalTitleController = TextEditingController();
   final signUpPasswordController = TextEditingController();
   final signUpEmailController = TextEditingController();
   final githubLink = TextEditingController();
@@ -86,7 +89,7 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
 
-  void register()async{
+  void register({required List skills})async{
     emit(LoadingState());
     await auth.createUserWithEmailAndPassword(
       email:signUpEmailController.text ,
@@ -104,10 +107,13 @@ class AuthCubit extends Cubit<AuthStates> {
               "image":null,
               "id":FirebaseAuth.instance.currentUser!.uid,
               "github":githubLink.text,
-              "interested":interested.text,
-              "skills":skills.text,
-              "currentJob":job.text,
+              "interested":Interests,
+              "rate":null,
+              //todo skills
+              "skills":FieldValue.arrayUnion(skills),
+              "currentJob":professionalTitleController.text,
               "workType":jobType,
+              //todo sign up creator
               "accountType":accountType,
               'creationTime': DateFormat("dd/MM/yyyy").format(DateTime.now()),
             });

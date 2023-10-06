@@ -30,14 +30,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final PageController controller = PageController();
   List<OnBoardModel> list = [
     OnBoardModel(
-      image: "assets/icons/onboard1.svg",
+      image: "assets/images/onboard2.jpeg",
       title1: "onboard1",
       title2: "onboardSub",
     ),
     OnBoardModel(
-      image: "assets/icons/onboard2.svg",
+      image: "assets/images/onboard1.jpeg",
       title1: "onboard2",
-      title2: "onboardSub",
+      title2: "onboardSub".tr(),
     )
   ];
   Timer? _timer;
@@ -127,19 +127,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           color: AppColors.white,
                         )
                       ],
-                    ),
-                  ),
-                  24.verticalSpace,
-                  Align(
-                    alignment: Alignment.center,
-                    child: CustomTextButton(
-                      titleSize: 16.sp,
-                      titleFontWeight: FontWeight.w600,
-                      onPressed: () {
-                        CacheService().setOnBoarding().then((value) {
-                          navigateTo(const AuthScreen(),removeAll: true);
-                        });
-                      },
                     ),
                   ),
                 ],

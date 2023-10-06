@@ -11,6 +11,8 @@ class AppColors{
   static const red = Color(0xffEB5757);
   static const secondBackGround = Color(0xFFF5F5F5);
   static const scaffoldBackGround = Color(0xFFF2F2F2);
+  static const  backgroundColor = Color(0xff343541);
+  static const  botBackgroundColor = Color(0xff444654);
 
 
 

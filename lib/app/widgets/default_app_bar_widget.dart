@@ -15,6 +15,8 @@ class DefaultAppBarWidget extends StatelessWidget
   final VoidCallback? actionsOnPressed;
   final bool canBack;
   final double? leadingWidth;
+  final double? elevetion;
+  final Color? colorBack;
   final List<Widget>? actionsWidgets;
 
   const DefaultAppBarWidget(
@@ -24,14 +26,15 @@ class DefaultAppBarWidget extends StatelessWidget
       this.onPop,
       this.canBack = true, this.leading,  this.notify=true, this.actionsOnPressed, this.titleWidget,
         this.leadingWidth,
-        this.actionsWidgets,
+        this.actionsWidgets, this.elevetion, this.colorBack,
       })
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      elevation: 0,
+      elevation:elevetion?? 0,
+      backgroundColor:colorBack ,
       leading: canBack
           ? IconButton(
               onPressed: onPop ??

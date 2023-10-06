@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:link_zone/features/auth_feature/presentation/screens/user_data_screen.dart';
 import '../../../../app/utils/helper.dart';
 import '../../../../app/widgets/button_widget.dart';
 import '../../../../app/widgets/custom_drop_down.dart';
@@ -77,69 +78,23 @@ class _RegisterCustomBodyState extends State<RegisterCustomBody> {
                 ),
                 16.verticalSpace,
                 CustomFormField(
-                  header: "Interested",
-                  hint: "type your Interested",
-                  controller: cubit.interested,
-                  prefixIcon: Icons.interests,
+                  header: "Professional Title".tr(),
+                  hint: "Enter Professional Title".tr(),
+                  controller: cubit.professionalTitleController,
+                  prefixIcon: Icons.phone_android_sharp,
+                  keyboardType: TextInputType.text,
                 ),
                 16.verticalSpace,
-                CustomFormField(
-                  header: "Skills",
-                  hint: "type your Skills",
-                  controller: cubit.skills,
-                  prefixIcon: Icons.grid_view,
-                ),
-                16.verticalSpace,
-                CustomFormField(
-                  header: "Current Job",
-                  hint: "your Current Job",
-                  controller: cubit.job,
-                  prefixIcon: Icons.work,
-                ),
-                16.verticalSpace,
-                CustomDropDown(
-                  onItemChanged: (val){
-                    setState(() {
-                     cubit.jobType = val;
-                    });
-                  },
-                  items:jobs ,
-                  dropDownHint: cubit.jobType??"Work Type",
-                  headLine: "Work Type",
-                ),
-                16.verticalSpace,
-                CustomDropDown(
-                  onItemChanged: (val){
-                    setState(() {
-                      cubit.accountType = val;
-                    });
-                  },
-                  items:accounts ,
-                  dropDownHint: cubit.accountType??"Account Type",
-                  headLine: "Account Type",
-                ),
-                32.verticalSpace,
                 ButtonWidget(
-                  text: "SignUp".tr(),
+                  text: "Next".tr(),
                   loading: state is LoadingState,
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                     cubit.register();
+                    navigateTo(UserDataScreen());
                     }
                   },
                 ),
                 25.verticalSpace,
-                Align(
-                  alignment: Alignment.center,
-                  child: CustomTextButton(
-                    titleSize: 22.sp,
-                    titleFontWeight: FontWeight.bold,
-                    onPressed: () {
-                     // navigateTo(const BNBScreen(),replace: true);
-                    },
-                  ),
-                ),
-                100.verticalSpace,
 
               ],
             ),

@@ -33,11 +33,11 @@ class _ChooseLangScreenState extends State<ChooseLangScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.mainColor,
+      backgroundColor: AppColors.white,
       appBar: AppBar(
-        backgroundColor: AppColors.mainColor,
+        backgroundColor: AppColors.white,
         systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor:  AppColors.mainColor,
+          statusBarColor:  AppColors.white,
         ),
       ),
       body: Center(
@@ -51,17 +51,14 @@ class _ChooseLangScreenState extends State<ChooseLangScreen> {
                 tag: "logo",
                 child: Column(
                   children: [
-                    TextWidget(
-                      title:"Link Zone",
-                      titleSize: 20.sp,
-                      titleFontWeight: FontWeight.w600,
-                      fontFamily: AppFonts.regular,
-                      titleColor: AppColors.white,
-                    ),
+                    ImageWidget(
+                        imageUrl: "assets/images/app_logo.png",
+                      width: 200.w,
+                      height: 200.h,
+                    )
                   ],
                 ),
               ),
-              50.verticalSpace,
               AnimatedOpacity(
                 opacity: _opacity,
                 duration:const Duration(milliseconds: 1500),
@@ -72,7 +69,7 @@ class _ChooseLangScreenState extends State<ChooseLangScreen> {
                       titleSize: 20.sp,
                       titleFontWeight: FontWeight.w600,
                       fontFamily: AppFonts.bold,
-                      titleColor: AppColors.white,
+                      titleColor: AppColors.mainColor,
                     ),
                     24.verticalSpace,
                     ButtonWidget(
@@ -82,9 +79,9 @@ class _ChooseLangScreenState extends State<ChooseLangScreen> {
                         }
                         navigateTo(const OnBoardingScreen());
                       },
-                      text: "English الأنجليزية",
-                      color: AppColors.white,
-                      textColor: AppColors.mainColor,
+                      text:"English",
+                      color: AppColors.mainColor,
+                      textColor: AppColors.white,
                       fontFamily: AppFonts.bold,
                     ),
                     15.verticalSpace,
@@ -95,9 +92,10 @@ class _ChooseLangScreenState extends State<ChooseLangScreen> {
                         }
                         navigateTo(const OnBoardingScreen());
                       },
-                      text: "Arabic العربية",
-                      color: AppColors.white,
-                      textColor: AppColors.mainColor,
+                      text: "العربيه",
+                      color: AppColors.mainColor,
+                      textColor: AppColors.white,
+                      textSize: 20.sp,
                       fontFamily: AppFonts.bold,
                     ),
                   ],

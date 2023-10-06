@@ -41,6 +41,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                    text2: snapshot.data?["name"]??"",
                ),
                CustomHomeRow(
+                   text1: "Rate : ",
+                   hasRate: true,
+                   rate:  snapshot.data?["rate"]??0,
+                   text2: snapshot.data?["rate"]==null?"0.0":snapshot.data!["rate"].toString(),
+               ),
+               CustomHomeRow(
                  onTap: ()async {
                    await _launchUrl(url:"mailto:${snapshot.data?["email"]}");
                  },
@@ -76,25 +82,50 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                    text1: "Interests : ",
                    text2: snapshot.data?["interested"]??"",
                ),
-               CustomHomeRow(
-                   text1: "Skills : ",
-                   text2: snapshot.data?["skills"]??"",
+               Container(
+                 height: 200,
+                 padding: EdgeInsets.all(16.sp),
+                 margin: EdgeInsets.all(16.sp),
+                 decoration: BoxDecoration(
+                     color: AppColors.white,
+                     borderRadius: BorderRadius.circular(16.r)
+                 ),
+                 child: Row(
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
+                     TextWidget(
+                       title: "Skills",
+                       titleColor: AppColors.black3333,
+                       titleSize: 16.sp,
+                       titleFontWeight: FontWeight.bold,
+                     ),
+                     16.horizontalSpace,
+                     Expanded(
+                         child:ListView.separated(
+                           itemCount:snapshot.data?["skills"].length??0 ,
+                             itemBuilder: (context, index) {
+                               return TextWidget(
+                                 title: snapshot.data?["skills"][index],
+                                 titleColor: AppColors.black3333,
+                                 titleSize: 16.sp,
+                                 titleFontWeight: FontWeight.bold,
+                                 titleAlign: TextAlign.start,
+                               );
+                             },
+                           separatorBuilder: (context, index) {
+                             return 8.verticalSpace;
+                           },
+                         ),
+                     )
+                   ],
+                 ),
                ),
+                30.verticalSpace,
               ],
             );
           }
           return 0.verticalSpace;
         },
-      ),
-      bottomNavigationBar: Container(
-        color: AppColors.white,
-        padding: EdgeInsets.symmetric(horizontal: 16.sp,vertical: 16.sp),
-        child: ButtonWidget(
-          text: "Chat With ${widget.name}",
-          onPressed: () {
-            navigateTo(ChatScreen());
-          },
-        ),
       ),
     );
   }

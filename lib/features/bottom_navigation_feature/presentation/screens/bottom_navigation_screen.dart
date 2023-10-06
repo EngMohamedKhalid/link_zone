@@ -53,19 +53,29 @@ class _BNBScreenState extends State<BNBScreen> {
                    label: "Home".tr()
                  ),
                  BottomNavigationBarItem(
-                   icon:ImageWidget(
-                     imageUrl: AppAssets.category,
-                     width: 30.w,
-                     height: 30.h,
-                     color: cubit.currentIndex==1?AppColors.mainColor:AppColors.gery4,
+                   icon:Icon(
+                     Icons.grid_view,
+                     size: 30.sp,
                    ),
                    label: "Categories".tr()
                  ),
                   BottomNavigationBarItem(
-                      icon:Icon(
-                        Icons.chat,
-                        size: 30.sp,
+                      icon:ImageWidget(
+                        imageUrl: "assets/images/project.png",
+                        width: 60.w,
+                        height: 33.h,
+                        color: cubit.currentIndex==2?AppColors.mainColor:AppColors.gery4,
                       ),
+                      label: "Projects".tr()
+                  ),
+                  BottomNavigationBarItem(
+                      icon:ImageWidget(
+                    imageUrl: "assets/images/AI_ICON.png",
+                    width: 50.w,
+                    height: 35.h,
+                    fit: BoxFit.cover,
+                    color: cubit.currentIndex==3?AppColors.mainColor:AppColors.gery4,
+                  ),
                       label: "AI Chat".tr()
                   ),
                  BottomNavigationBarItem(

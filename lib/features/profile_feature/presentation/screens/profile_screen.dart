@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:link_zone/features/auth_feature/presentation/presentation_logic_holder/auth_cubit.dart';
+import 'package:link_zone/features/chat_feature/presentation/screens/chats_screen.dart';
 import 'package:link_zone/features/profile_feature/presentation/screens/my_posts_screen.dart';
 import 'package:link_zone/features/profile_feature/presentation/screens/personal_info_screen.dart';
+import 'package:rate/rate.dart';
 
 import '../../../../app/services/cache_service.dart';
 import '../../../../app/services/image_picker_service/image_picker_service.dart';
@@ -181,7 +183,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             )
                           ],
                         ),
-                        12.horizontalSpace,
+                        16.horizontalSpace,
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,11 +194,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 titleSize: 17.sp,
                                 titleFontWeight: FontWeight.w600,
                               ),
-                              8.verticalSpace,
+                              5.verticalSpace,
                               TextWidget(
                                 title:snapshot.data?["email"],
                                 titleColor: AppColors.hint,
                                 titleSize: 16.sp,
+                              ),
+                              5.verticalSpace,
+                              Row(
+                                children: [
+                                  TextWidget(
+                                    title:snapshot.data?["rate"]==null?"0.0":snapshot.data!["rate"].toString(),
+                                    titleColor: AppColors.hint,
+                                    titleSize: 16.sp,
+                                  ),
+                                  3.horizontalSpace,
+                                  Rate(
+                                    color:Colors.amber,
+                                    allowHalf: true,
+                                    readOnly: true,
+                                    initialValue: snapshot.data?["rate"]??0.0,
+                                  )
+                                ],
                               ),
                             ],
                           ),
@@ -217,6 +236,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 },
                 icon: Icons.person_outline_outlined,
                 title: "PersonalInformation".tr(),
+            ),
+            16.verticalSpace,
+            ListTileWidget(
+                onTap: (){
+                 navigateTo(const AllChatsScreen());
+                },
+                icon: Icons.group,
+                title: "Chats".tr(),
             ),
             16.verticalSpace,
             ///////////////////My Order//////////////////

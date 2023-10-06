@@ -21,6 +21,7 @@ import '../../../../app/widgets/image_widget.dart';
 import '../../../../app/widgets/loading.dart';
 import '../../../../app/widgets/text_widget.dart';
 import '../../../categories_feature/presentation/screens/product_details_screen.dart';
+import '../../../notifications_feature/presentation/screens/notification_screen.dart';
 import '../presentation_logic_holder/home_cubit.dart';
 import '../presentation_logic_holder/home_state.dart';
 import '../widgets/custom_product_item.dart';
@@ -42,6 +43,16 @@ class _HomeScreenState extends State<HomeScreen> {
   TextEditingController nameController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   String ?name ;
+  String chatRoomId(String user1, String user2) {
+    if (user1[0].toLowerCase().codeUnits[0] >
+        user2.toLowerCase().codeUnits[0]) {
+      return "$user1$user2";
+    } else {
+      return "$user2$user1";
+    }
+  }
+ final cont = TextEditingController();
+  Stream<QuerySnapshot<Map<String, dynamic>>>? stream;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
@@ -50,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
         return Scaffold(
           appBar: DefaultAppBarWidget(
             actionsOnPressed: () {
-              //navigateTo(const NotificationScreen());
+             navigateTo(const NotificationScreen());
             },
             onPop: () {},
             actions: true,
@@ -86,111 +97,118 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           body:state is HomeLoading?
          const  Loading():
-          SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                16.verticalSpace,
-                //////////add Carousel /////
-                // CarouselWidget(
-                //   items: List<Widget>.generate(
-                //     cubit.homeModel?.banners.length ?? 0,
-                //         (index) =>
-                //         ClipRRect(
-                //           borderRadius: BorderRadius.circular(16.r),
-                //           child: ImageWidget(
-                //             imageUrl: cubit.homeModel?.banners[index].image ?? "",
-                //             width: 396.w,
-                //             height: 180.h,
-                //             fit: BoxFit.cover,
-                //           ),
-                //         ),
-                //   ),
-                // ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: TextWidget(
-                    title: "Posts",
-                    titleColor: AppColors.black,
-                    titleSize: 19.sp,
-                    titleFontWeight: FontWeight.w600,
-                  ),
-                ),
-                16.verticalSpace,
-                SizedBox(
-                  height: 250.h,
-                  child: StreamBuilder(
-                    stream:  FirebaseFirestore.instance.collection("posts").orderBy('time', descending: true).snapshots(),
-                    builder: (context, snapshot) {
-                      if(snapshot.hasData){
-                        return
-                          snapshot.data!.docs.isEmpty?
-                         const Center(
-                            child: TextWidget(
-                              title: "No Posts",
-                            ),
-                          ):
-                          ListView.separated(
-                          physics:const BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: snapshot.data?.docs.length??0,
-                          padding: EdgeInsets.symmetric(horizontal: 16.w),
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                navigateTo(UserProfileScreen(
-                                  id: snapshot.data?.docs[index]["userId"],
-                                  name:snapshot.data?.docs[index]["name"] ,
-                                ));
-                              },
-                              child: CustomPostItem(
-                               name: snapshot.data?.docs[index]["name"]??"",
-                               post: snapshot.data?.docs[index]["post"]??"",
-                              ),
-                            );
-                          },
-                          separatorBuilder: (context, index) => 16.horizontalSpace,
-                        );
-                      }
-                      return Text("");
-                    },
-                  ),
-                ),
-                16.verticalSpace,
-                 Padding(
-                   padding: EdgeInsets.symmetric(horizontal: 16.w),
-                   child: TextWidget(
-                     title: "Most Popular",
-                     titleColor: AppColors.black,
-                     titleSize: 19.sp,
-                     titleFontWeight: FontWeight.w600,
-                   ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              16.verticalSpace,
+               Padding(
+                 padding: EdgeInsets.symmetric(horizontal: 16.w),
+                 child: CustomFormField(
+                   controller:cont ,
+                   hint: "Search..",
+                   onChange: (val) {
+                     // if(val.isNotEmpty){
+                     //   stream =   FirebaseFirestore.instance.collection("posts").where(
+                     //     "post",isGreaterThanOrEqualTo: val,
+                     //     isLessThan: val + 'z',).orderBy('post').orderBy('time', descending: true).snapshots();
+                     // }else{
+                     //   stream =  FirebaseFirestore.instance.collection("posts").orderBy('time', descending: true).snapshots();
+                     // }
+                     // setState(() {
+                     //
+                     // });
+                   },
                  ),
-                16.verticalSpace,
-                ListView.builder(
-                  physics:const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: cubit.homeModel?.homeProducts.length??0,
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        navigateTo(UserProfileScreen(
-                          //todo add User Id Here
-                          id: "",
-                          name: "",
-                        ),);
-                      },
-                      child: CustomProductItemDetails(
-                          productDetails:cubit.homeModel!.homeProducts[index],
-                      ),
-                    );
+               ),
+              16.verticalSpace,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: TextWidget(
+                  title: "Posts",
+                  titleColor: AppColors.black,
+                  titleSize: 19.sp,
+                  titleFontWeight: FontWeight.w600,
+                ),
+              ),
+              16.verticalSpace,
+              Expanded(
+                child: StreamBuilder(
+                  stream:FirebaseFirestore.instance.collection("posts").orderBy('time', descending: true).snapshots(),
+                  builder: (context, snapshot) {
+                    if(snapshot.hasData){
+                      return
+                        snapshot.data!.docs.isEmpty?
+                       const Center(
+                          child: TextWidget(
+                            title: "No Posts",
+                          ),
+                        ):
+                        ListView.separated(
+                        physics:const BouncingScrollPhysics(),
+                        itemCount: snapshot.data?.docs.length??0,
+                        padding: EdgeInsets.symmetric(horizontal: 16.w),
+                        itemBuilder: (context, index) {
+                          return CustomPostItem(
+                           name: snapshot.data?.docs[index]["name"]??"",
+                           post: snapshot.data?.docs[index]["post"]??"",
+                            isCurrentUser:  snapshot.data!.docs[index]["userId"]==
+                                FirebaseAuth.instance.currentUser!.uid?false:true,
+                            onPressed:
+                              snapshot.data!.docs[index]["userId"]!=
+                                  FirebaseAuth.instance.currentUser!.uid?
+                                  () {
+                                String roomId = chatRoomId(
+                                    FirebaseAuth.instance.currentUser!.uid,
+                                    snapshot.data!.docs[index]["userId"]
+                                );
+                                navigateTo(
+                                    ChatScreen(
+                                      chatRoomId: roomId,
+                                      name: snapshot.data!.docs[index]["name"],
+                                      userId:snapshot.data!.docs[index]["userId"],
+                                    )
+                                );
+                              }:(){}
+                          );
+                        },
+                        separatorBuilder: (context, index) => 16.horizontalSpace,
+                      );
+                    }
+                    return Text("");
                   },
-                )
+                ),
+              ),
+              16.verticalSpace,
+              //  Padding(
+              //    padding: EdgeInsets.symmetric(horizontal: 16.w),
+              //    child: TextWidget(
+              //      title: "Most Popular",
+              //      titleColor: AppColors.black,
+              //      titleSize: 19.sp,
+              //      titleFontWeight: FontWeight.w600,
+              //    ),
+              //  ),
+              // 16.verticalSpace,
+              // ListView.builder(
+              //   physics:const NeverScrollableScrollPhysics(),
+              //   shrinkWrap: true,
+              //   itemCount: cubit.homeModel?.homeProducts.length??0,
+              //   padding: EdgeInsets.symmetric(horizontal: 16.w),
+              //   itemBuilder: (context, index) {
+              //     return InkWell(
+              //       onTap: () {
+              //         navigateTo(
+              //             ChatScreen()
+              //         );
+              //       },
+              //       child: CustomProductItemDetails(
+              //           productDetails:cubit.homeModel!.homeProducts[index],
+              //       ),
+              //     );
+              //   },
+              // )
 
-              ],
-            ),
+            ],
           ),
           floatingActionButton: FloatingActionButton(
             backgroundColor: AppColors.mainColor,
@@ -274,12 +292,4 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-String chatRoomId(String user1, String user2) {
-  if (user1[0].toLowerCase().codeUnits[0] >
-      user2.toLowerCase().codeUnits[0]) {
-    return "$user1$user2";
-  } else {
-    return "$user2$user1";
-  }
-}
 

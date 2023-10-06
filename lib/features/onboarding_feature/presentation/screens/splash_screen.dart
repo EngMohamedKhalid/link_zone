@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-   Future.delayed(const Duration(seconds: 2),(){
+   Future.delayed(const Duration(seconds:5),(){
      late Widget widget ;
      if(getIt<CacheService>().getOnBoarding()!=null){
        if(FirebaseAuth.instance.currentUser != null ){
@@ -51,11 +51,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      backgroundColor: AppColors.mainColor,
+      backgroundColor: AppColors.white,
       appBar: AppBar(
-        backgroundColor: AppColors.mainColor,
+        backgroundColor: AppColors.white,
         systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarColor:  AppColors.mainColor,
+          statusBarColor:  AppColors.white,
         ),
       ),
       body: Center(
@@ -63,13 +63,11 @@ class _SplashScreenState extends State<SplashScreen> {
           padding:  EdgeInsets.symmetric(horizontal: 16.w),
           child: Hero(
             tag: "logo",
-            child: TextWidget(
-              title:"Link Zone",
-              titleSize: 20.sp,
-              titleFontWeight: FontWeight.w600,
-              fontFamily: AppFonts.regular,
-              titleColor: AppColors.white,
-            ),
+            child:ImageWidget(
+              imageUrl: "assets/images/logo.png",
+              width: 300.w,
+              height: 300.h,
+            )
           ),
         ),
       ),
@@ -80,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen> {
           titleSize: 18.sp,
           titleFontWeight: FontWeight.w400,
           fontFamily: AppFonts.regular,
-          titleColor: AppColors.white,
+          titleColor: AppColors.mainColor,
         ),
       ),
     );

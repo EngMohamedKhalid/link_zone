@@ -7,6 +7,7 @@ import 'package:link_zone/features/profile_feature/presentation/screens/profile_
 
 import '../../../categories_feature/presentation/screens/categories_screen.dart';
 import '../../../home_feature/presentation/screens/home_screen.dart';
+import '../../../projects_feature/presentation/screens/Projects_screen.dart';
 import 'bottom_navigation_state.dart';
 
 class BottomNavigationCubit extends Cubit<BottomNavigationStats> {
@@ -14,8 +15,9 @@ class BottomNavigationCubit extends Cubit<BottomNavigationStats> {
   static BottomNavigationCubit get(context) => BlocProvider.of(context);
   int currentIndex = 0;
   List<Widget> screens =const  [
-     HomeScreen(),
+    HomeScreen(),
     CategoriesScreen(),
+    ProjectsScreen(),
     AIChatScreen(),
     ProfileScreen(),
   ];
